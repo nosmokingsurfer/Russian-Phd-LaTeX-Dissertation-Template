@@ -4,16 +4,35 @@
 
 Рассмотрим робот с трехзвенным корпусом. Звенья корпуса соединены между собой при помощи одностепенных вращательных шарниров. 
 
-\todo{картинка кинематической схемы робота}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.7\linewidth]{Articulated/robot_2.eps}
+  \caption{Шестиногий робот с трехзвенным корпусом}
+  \label{articulated:fig:robot}
+\end{figure}
 
 
-\subsection{Преодоление препятствия типа уступ. Постановка задачи}
+\section{Преодоление препятствия типа уступ. Постановка задачи}
 
-\todo{Вставить картинку}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width = 0.7\linewidth]{Articulated/cliff.eps}
+  \caption{Робот и препятствие типа уступ}
+  \label{img:cliff}
+\end{figure}
 
-Препятствие типа "Прямой уступ" состоит из трёх контактных площадок - две горизонтальные площадки и одна вертикальная. Расстояние по вертикали между двумя горизонтальными площадками $h$. В начальный момент времени робот стоит на нижней площадке, на некотором расстоянии от вертикальной стенки. Вертикальная стенка образует прямой угол с горизонтальными площадками.
+Препятствие типа "Уступ" состоит из трёх контактных площадок - две горизонтальные площадки и одна вертикальная. Расстояние по вертикали между двумя горизонтальными площадками $h$. В начальный момент времени робот стоит на нижней площадке, на некотором расстоянии от вертикальной стенки. Вертикальная стенка образует прямой угол с горизонтальными площадками. Далее в работе рассматриваем уступ, высота которого равна длине корпуса робота, т.е. размер препятствия является существенным по сравнению с размерами робота.
 
-Считаем, что робот двигается в режиме статической устойчивости и не менее трех ног находятся в контакте с опорной поверхностью. Работ двигается, так называемой, походкой галоп - поочередно переставляя пару симметричных ноги по левому и правому борту. Робот двигается достаточно медленно.
+Практический интерес представляет случай, когда робот преодолевает препятствие только за счет использования сил кулоновского трения. Далее в разделе будем искать условия при которых необходимый коэффициент трения $k$ между ногам робота и опорной поверхностью будет удовлетворять условию:
+
+\begin{equation}
+\label{articulated:k_condition}
+  0 < k < 1
+\end{equation}
+
+Значения, большие единицы, для коэффициента трения означают, что веса аппарата не хватает чтобы создать необходимую силу трения и потребуется использовать специальные зацепные механизмы на концах ног, чтобы обеспечить устойчивость конфигурации.
+
+Считаем, что робот двигается в режиме статической устойчивости и не менее трех ног находятся в контакте с опорной поверхностью. Работ двигается, так называемой, походкой галоп - поочередно переставляя пару симметричных ноги по левому и правому борту. Робот двигается в режиме квази статики, т.е. достаточно медленно.
 
 При залезании на верхнюю горизонтальную площадку прямого уступам можно выделить следующие конфигурации расположения ног робота:
 
@@ -24,36 +43,43 @@
   \item все ноги робота опираются на верхнюю горизонтальную площадку уступа
 \end{enumerate}
 
-
-%Первый этап --- подход аппарата к вертикальной площадке и зацепление передними ногами за верхнюю кромку препятствия. В конце первого этапа корпус аппарата принимает вертикальное положение, передние ноги находятся в контакте с верхней площадкой, остальные ноги опираются на вертикальную площадку. Второй этап --- последовательное подтягивание корпуса и перемещение сегментов через верхнюю кромку препятствия. В конце второго этапа корпус робота принимает горизонтальное положение, все ноги аппарата находятся в контакте с верхней горизонтальной площадкой.
-%
-%Аппарат перемещается при помощи походки "галоп", т.е. переносятся симметричные пары ног --- две передние ноги, две средние, две задние. Будем считать, что аппарат двигается достаточно медленно. 
-
-Исследуем статическую устойчивость робота для каждой конфигурации расположения ног на опорных площадках препятствия. 
+Исследуем статическую устойчивость робота для каждой конфигурации, когда одна из пар опирается на вертикальную площадку препятствия. 
 
 
 \subsection{Первая конфигурация}
-\todo{сделать ссылку на эту главу}
-\todo{сделать нижние индексы и назвать их front и rare}
+\label{articulated:case1}
 
-Исследуем на устойчивость конфигурацию, когда одна пара ног робота опирается на вертикальную стенку, а другая пара ног опирается на нижнюю горизонтальную площадку. Робот будет находится в статическом равновесии, когда сумма всех внешних сил и сумма всех внешних моментов будут равны нулю.
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width = 0.7\linewidth]{Articulated/configuration_1.eps}
+  \caption{Робот стоит на нижней горизонтальной площадке и опирается на вертикальную стенку}
+  \label{articulated:configuration_1}
+\end{figure}
 
-Введём неподвижную систему координат $Oxyz$. Оси системы направлены как показано на рис.(\todo{вставить ссылку}).
+
+Исследуем на устойчивость конфигурацию, когда одна пара ног робота опирается на вертикальную стенку, а вторая пара ног опирается на нижнюю горизонтальную площадку. Робот будет находится в статическом равновесии, когда сумма всех внешних сил и сумма всех внешних моментов будут равны нулю.
+
+Введём неподвижную систему координат $Oxyz$. Оси системы направлены как показано на рис.(\ref{articulated:configuration_1}) и образуют правую тройку векторов.
 
 Пусть точки опоры ног имеют координаты:
 
 \begin{equation}
-  \label{eq:step_points}
+  \label{articulated:case_1_step_points}
   \begin{alignedat}{3}
-    &\overline{r}_1 &= (d, 0, h) , &\overline{r}_2 &= (-d, 0, h) \\
-    &\overline{r}_3 &= (d, l, 0) , &\overline{r}_4 &= (-d, l, 0) \\
-  \end{alignedat}
+    \overline{r}_1 &= (d, 0, h) , &\overline{r}_2 &= (-d, 0, h) \\
+    \overline{r}_3 &= (d, l, 0) , &\overline{r}_4 &= (-d, l, 0) \\
+  \end{alignedat},~l>0, h>0, d>0.
 \end{equation}
 
 
 Положение центра масс аппарата задано вектором:
 
-\[\overline{r}_c = (0, y_c, z_c)\]
+
+\begin{equation}
+\label{articulated:case_1_center_of_gravity}
+  \overline{r}_c = (0, y_c, z_c), 0 < y_c < l\\
+\end{equation}
+
 
 На центр масс робота действует сила тяжести:
 
@@ -66,10 +92,23 @@
 
 \begin{equation}
 \label{eq:reactions}
-  \overline{R}_i := N^i\cdot\overline{n}_i + F_\tau^i\cdot\overline{\tau}_i + F_\nu^i\cdot\overline{\nu}_i = \overline{N}^i + \overline{F}_\tau^i + \overline{F}_\nu^i,
+  \overline{R}_i := N_i\cdot\overline{n}_i + F_\tau^i\cdot\overline{\tau}_i + F_\nu^i\cdot\overline{\nu}_i,
 \end{equation}
 
-где $N_i$ - модуль нормальной составляющей $i$-й реакции, направленный по нормали $\overline{n}_i$, $F_\tau^i$ и $F_\nu^i$ - проекции касательной составляющей реакции, в проекции на локальные оси $\overline{\tau}_i$ и $\overline{\nu}_i$.
+где $N_i$ - модуль нормальной составляющей $i$-й реакции, направленный по нормали $\overline{n}_i$, $F_\tau^i$ и $F_\nu^i$ - проекции касательной составляющей реакции на локальные оси $\overline{\tau}_i$ и $\overline{\nu}_i$.
+
+Значения ортов $\overline{\tau}_i$, $\overline{\nu}_i$ и $\overline{n}_i$ в рассматриваемом случае:
+
+\begin{equation}
+\label{articulated:case_1_orts}
+  \begin{alignedat}{3}
+    \overline{\tau}_1 = (0,0,1),&\overline{\nu}_1 = (1,0,0),&\overline{n}_1 = (0,1,0),\\
+    \overline{\tau}_2 = (0,0,1),&\overline{\nu}_2 = (1,0,0),&\overline{n}_2 = (0,1,0),\\
+    \overline{\tau}_3 = (0,1,0),&\overline{\nu}_3 = (1,0,0),&\overline{n}_3 = (0,0,1),\\
+    \overline{\tau}_4 = (0,1,0),&\overline{\nu}_4 = (1,0,0),&\overline{n}_4 = (0,0,1),\\
+  \end{alignedat}
+\end{equation}
+
 
 Чтобы система находилась в положении равновесия сумма всех внешних сил должна быть равна нулю, а также сумма всех моментов внешних сил относительно любой точки должна быть равна нулю:
 
@@ -84,107 +123,81 @@
 \end{equation}
 
 
-
-Распишем все слагаемые из уравнения \ref{eq:reactions}.
-
-Нормальные составляющие $\overline{N}^i$ реакций опоры:
+Реакции опоры имею следующий вид:
 
 \begin{equation}
-\label{eq:N_i}
-  \begin{alignedat}{3}
-    &\overline{N}^1 &= &N_1\cdot(0,1,0),  \\
-    &\overline{N}^2 &= &N_2\cdot(0,1,0),  \\
-    &\overline{N}^3 &= &N_3\cdot(0,0,1),  \\
-    &\overline{N}^4 &= &N_4\cdot(0,0,1).  \\
-  \end{alignedat}
-\end{equation}
-
-Соответствующие силы трения в точках контакта:
-\begin{equation}
-\label{eq:F_tau_i}
-  \begin{alignedat}{3}
-    &\overline{F}_\tau^1 &= &F_\tau^1\cdot(0,0,1),  \\
-    &\overline{F}_\tau^2 &= &F_\tau^2\cdot(0,0,1),  \\
-    &\overline{F}_\tau^3 &= &F_\tau^3\cdot(0,1,0),  \\
-    &\overline{F}_\tau^4 &= &F_\tau^4\cdot(0,1,0).  \\
-  \end{alignedat}
-\end{equation}
-
-\begin{equation}
-\label{eq:F_nu_i}
-  \begin{alignedat}{1}
-  \overline{F}_\nu^1 = F_\nu^1\cdot(1,0,0), \\
-  \overline{F}_\nu^2 = F_\nu^2\cdot(1,0,0), \\
-  \overline{F}_\nu^3 = F_\nu^3\cdot(1,0,0), \\
-  \overline{F}_\nu^4 = F_\nu^4\cdot(1,0,0). \\
-  \end{alignedat}
+\label{articulated:case_1_forces}
+\begin{alignedat}{2}
+  \overline{R}_1 = (F^1_\nu, N_1, F^1_\tau),\\
+  \overline{R}_2 = (F^2_\nu, N_2, F^2_\tau),\\
+  \overline{R}_3 = (F^3_\nu, F^3_\tau, N_3),\\
+  \overline{R}_4 = (F^4_\nu, F^4_\tau, N_4).\\
+\end{alignedat}
 \end{equation}
 
 Рассчитаем моменты сил для реакций опоры и силы тяжести относительно начала системы координат $Oxyz$.
 
 \begin{equation}
-\label{eq:momentums}
+\label{articulated:case_1_momentums}
   \begin{alignedat}{3}
-    &[\overline{r}_1\times\overline{R}_1] &=&  (d,0,h)\times(F_\nu^1, N^1, F_\tau^1) &=& (-N^1h,F_\nu^1h - F_\tau^1d,N^1d),  \\
-    &[\overline{r}_2\times\overline{R}_2] &=& (-d,0,h)\times(F_\nu^2, N^2, F_\tau^2) &=& (-N^2h,F_\nu^2h + F_\tau^2d,-N^2d), \\
-    &[\overline{r}_3\times\overline{R}_3] &=&  (d,l,0)\times(F_\nu^3, F_\tau^3, N^3) &=& (N^3l,-N^3d, F_\tau^3d-F_\nu^3l), \\
-    &[\overline{r}_4\times\overline{R}_4] &=& (-d,l,0)\times(F_\nu^4, F_\tau^4, N^4) &=& (N^4l, N^4d,-F_\tau^4d-F_\nu^4l),\\
-    &[\overline{r}_c\times\overline{P}]   &=&  (0, y_c, z_c)\times(0,0,-P) &=& (-Py_c,0,0)\\
+    [\overline{r}_1&\times\overline{R}_1] &=&  (d,0,h)\times(F_\nu^1, N_1, F_\tau^1) &=& (-N_1h,F_\nu^1h - F_\tau^1d,N_1d),  \\
+    [\overline{r}_2&\times\overline{R}_2] &=& (-d,0,h)\times(F_\nu^2, N_2, F_\tau^2) &=& (-N_2h,F_\nu^2h + F_\tau^2d,-N_2d), \\
+    [\overline{r}_3&\times\overline{R}_3] &=&  (d,l,0)\times(F_\nu^3, F_\tau^3, N_3) &=& (N_3l,-N_3d, F_\tau^3d-F_\nu^3l), \\
+    [\overline{r}_4&\times\overline{R}_4] &=& (-d,l,0)\times(F_\nu^4, F_\tau^4, N_4) &=& (N_4l, N_4d,-F_\tau^4d-F_\nu^4l),\\
+    [\overline{r}_c&\times\overline{P}]   &=&  (0, y_c, z_c)\times(0,0,-P) &=& (-Py_c,0,0)\\
   \end{alignedat}
 \end{equation}
 
-Подставим полученные выражения для сил \ref{eq:N_i}, \ref{eq:F_nu_i}, \ref{eq:F_tau_i}, \ref{eq:F_c} и моментов \ref{eq:momentums} в уравнения статического равновесия (\ref{eq:general_static_equations}) и получим следующую систему из шести уравнений:
+Подставим полученные выражения для сил \ref{articulated:case_1_forces}, \ref{eq:F_c} и моментов \ref{articulated:case_1_momentums} в уравнения статического равновесия (\ref{eq:general_static_equations}) и получим следующую систему из шести уравнений:
 
 \begin{equation}
-  \label{eq:case1_initial}
+  \label{articulated:case1_initial}
   \left\{
     \begin{alignedat}{3}  
       %Fnu_1 + Fnu_2 + Fnu_3 + Fnu_4 == 0
       %Ft_3 + Ft_4 + N_1 + N_2 == 0
       %Ft_1 + Ft_2 + N_3 + N_4 == P  
       F_\nu^1 + F_\nu^2 + F_\nu^3 + F_\nu^4 = 0, \\
-      N^1 + N^2 + F_\tau^3 + F_\tau^4 = 0, \\
-      F_\tau^1 + F_\tau^2 + N^3 + N^4 = P, \\
+      N_1 + N_2 + F_\tau^3 + F_\tau^4 = 0, \\
+      F_\tau^1 + F_\tau^2 + N_3 + N_4 = P, \\
       %  N_1 h + N_2 h + P y_c == l (N_3 + N_4)
       %  d (Ft_1 + N_3) == Ft_2 d + Fnu_1 h + Fnu_2 h + N_4 d  
       %  d (Ft_3 + N_1) == Ft_4 d + N_2 d + Fnu_3 l + Fnu_4 l  
-      N^1h + N^2h + Py_c = l(N^3 + N^4), \\
-      d(F_\tau^1 + N^3) = F_\tau^2d + F_\nu^1h + F_\nu^2h + N^4d, \\
-      d(F_\tau^3 + N^1) = F_\tau^4d + N^2d +F_\nu^3l + F_\nu^4l.\\
+      N_1h + N_2h + Py_c = l(N_3 + N_4), \\
+      d(F_\tau^1 + N_3) = F_\tau^2d + F_\nu^1h + F_\nu^2h + N_4d, \\
+      d(F_\tau^3 + N_1) = F_\tau^4d + N_2d +F_\nu^3l + F_\nu^4l.\\
     \end{alignedat}
   \right.
 \end{equation}
 
-
-
-Используем модель кулоновского трения и выполним замены $F_\tau^i = k_\tau^i\cdot N^i$ и $F_\nu^i = k_\nu^i\cdot N^i$ в уравнении \ref{eq:case1_initial}. Получим следующий вид уравнений:
+Используем модель кулоновского трения и выполним замены $F_\tau^i = k_\tau^i\cdot N_i$ и $F_\nu^i = k_\nu^i\cdot N_i$ в уравнении \ref{articulated:case1_initial}. Получим следующий вид уравнений:
 
 \begin{equation}
-\label{eq:case1_subs_kulon}
+\label{articulated:case1_subs_kulon}
 \left\{
   \begin{alignedat}{3}  
     %N_1 knu_1 + N_2 knu_2 + N_3 knu_3 + N_4 knu_4 == 0
-    N^1k_\nu^1 + N^2k_\nu^2 + N^3k_\nu^3 + N^4k_\nu^4 = 0,\\
+    N_1k_\nu^1 + N_2k_\nu^2 + N_3k_\nu^3 + N_4k_\nu^4 = 0,\\
     %N_1 + N_2 + N_3 kt_3 + N_4 kt_4 == 0
-    N^1 + N^2 + N^3k_\tau^3 + N^4k_\tau^4 = 0, \\
+    N_1 + N_2 + N_3k_\tau^3 + N_4k_\tau^4 = 0, \\
     %N_3 + N_4 + N_1 kt_1 + N_2 kt_2 == P
-    N^3 + N^4 + N^1k_\tau^1 + N^2k_\tau^2 = P, \\
+    N_3 + N_4 + N_1k_\tau^1 + N_2k_\tau^2 = P, \\
     %N_1 h + N_2 h + P y_c == l (N_3 + N_4)
-    N^1h + N^2h + Py_c = l(N^3 + N^4), \\
+    N_1h + N_2h + Py_c = l(N_3 + N_4), \\
     %d (N_3 + N_1 kt_1) == N_4 d + N_2 d kt_2 + N_1 h knu_1 + N_2 h knu_2
-    d(N^3 + N^1k_\tau^1) = dN^4 + dN^2k_\tau^2 + hN^1k_\nu^1 + hN^2k_\nu^2,\\
+    d(N_3 + N_1k_\tau^1) = dN_4 + dN_2k_\tau^2 + hN_1k_\nu^1 + hN_2k_\nu^2,\\
     %d (N_1 + N_3 kt_3) == N_2 d + N_4 d kt_4 + N_3 knu_3 l + N_4 knu_4 l
-    d(N^1 + N^3k_\tau^3) = dN^2 + dN^4k_\tau^4 + lN^3k_\nu^3 + lN^4k_\nu^4\\
+    d(N_1 + N_3k_\tau^3) = dN_2 + dN_4k_\tau^4 + lN_3k_\nu^3 + lN_4k_\nu^4\\
   \end{alignedat}
 \right.
 \end{equation}
 
 
-В полученной системе \ref{eq:case1_subs_kulon} из шести уравнений содержится двенадцать неизвестных:
+В полученной системе \ref{articulated:case1_subs_kulon} из шести уравнений содержится двенадцать неизвестных:
 $k_\nu^1, k_\nu^2, k_\nu^3, k_\nu^4, k_\tau^1, k_\tau^2, k_\tau^3, k_\tau^4, N_1, N_2, N_3, N_4$ --- неизвестные, причём $N_i>0$. Введем дополнительное соотношение на коэффициенты трения:
 
 \begin{equation}
-  \label{eq:case1_assumption_1}
+  \label{articulated:case1_assumption_1}
   \left\{
     \begin{alignedat}{3}
       k_\nu^1  &= -&k_\nu^2& &= k_\nu,\\
@@ -195,222 +208,235 @@ $k_\nu^1, k_\nu^2, k_\nu^3, k_\nu^4, k_\tau^1, k_\tau^2, k_\tau^3, k_\tau^4, N_1
   \right.
 \end{equation}
 
-После подстановки дополнительных соотношений \ref{eq:case1_assumption_1} в \ref{eq:case1_subs_kulon} получим следующую систему уравнений:
+После подстановки дополнительных соотношений \ref{articulated:case1_assumption_1} в \ref{articulated:case1_subs_kulon} получим следующую систему уравнений:
 
 \begin{equation}
-\label{eq:case1_subs_assumption_1}
+\label{articulated:case1_subs_assumption_1}
   \left\{
     \begin{alignedat}{3}
-      k_\nu(N^1 + N^3 - N^2 - N^4) = 0,\\
-      N^1 + N^2 + k_\tau^d(N^3 + N^4) = 0,\\
-      k_\tau^u(N^1 + N^2) + N^3 + N^4 = P,\\
-      N^1h + N^2h + Py_c = l(N^3 + N^4), \\      
+      k_\nu(N_1 + N_3 - N_2 - N_4) = 0,\\
+      N_1 + N_2 + k_\tau^d(N_3 + N_4) = 0,\\
+      k_\tau^u(N_1 + N_2) + N_3 + N_4 = P,\\
+      N_1h + N_2h + Py_c = l(N_3 + N_4), \\      
       %N_3 d + N_1 d kt_u + N_2 h knu == N_4 d + N_2 d kt_u + N_1 h knu  
-      dN^3 + dN^1k_\tau^u + hN^2k_\nu = dN^4 + dN^2k_\tau^u + hN^1k_\nu,\\
+      dN_3 + dN_1k_\tau^u + hN_2k_\nu = dN_4 + dN_2k_\tau^u + hN_1k_\nu,\\
       %N_1 d + N_3 d kt_d + N_4 knu l == N_2 d + N_4 d kt_d + N_3 knu l
-      dN^1 + dN^3k_\tau^d + lN^4k_\nu = dN^2 + dN^4k_\tau^d + lN^3k_\nu.\\
+      dN_1 + dN_3k_\tau^d + lN_4k_\nu = dN_2 + dN_4k_\tau^d + lN_3k_\nu.\\
     \end{alignedat}
   \right.
 \end{equation}
 
-В системе \ref{eq:case1_subs_assumption_1} из шести уравнений уже семь неизвестных. Дополнительно введем предположение что правые и левые ноги одинаково нагружены, т.е.:
+В системе \ref{articulated:case1_subs_assumption_1} из шести уравнений уже семь неизвестных. Дополнительно введем предположение что правые и левые ноги одинаково нагружены, т.е.:
 
 \begin{equation}
-\label{eq:case1_assumption_2}
+\label{articulated:case1_assumption_2}
   \left\{
     \begin{alignedat}{3}
-    N^1 = N^3 = N^u, \\
-    N^2 = N^4 = N^d. \\
+    N_1 = N_3 = N_u, \\
+    N_2 = N_4 = N_d. \\
     \end{alignedat}
   \right.
 \end{equation}
 
 
-Подставим соотношение \ref{eq:case1_assumption_2} в систему \ref{eq:case1_subs_assumption_1}. В результате первое, пятое и шестое уравнение \ref{eq:case1_subs_assumption_1} превратятся в тождества:
+Подставим соотношение \ref{articulated:case1_assumption_2} в систему \ref{articulated:case1_subs_assumption_1}. В результате первое, пятое и шестое уравнение \ref{articulated:case1_subs_assumption_1} превратятся в тождества:
 
 \begin{equation}
-\label{eq:case1_subs_assumption_2}
+\label{articulated:case1_subs_assumption_2}
   \left\{
   \begin{alignedat}{3}
     % N_u + N_d kt_d == 0
-    N^u + N^dk_\tau^d = 0, \\
+    N_u + N_dk_\tau^d = 0, \\
     %2 N_d + 2 N_u kt_u == P
-    2N^d + 2N^uk_\tau^u = P, \\
+    2N_d + 2N_uk_\tau^u = P, \\
     %2 N_u h + P y_c == 2 N_d l
-    2hN^u + Py_c = 2lN^d.\\
+    2hN_u + Py_c = 2lN_d.\\
   \end{alignedat}
   \right.
 \end{equation}
 
-В системе \ref{eq:case1_subs_assumption_2} уже три уравнения и четыре неизвестных. Введем допущение, что коэффициенты трения для передних и задних ног совпадают: 
+В системе \ref{articulated:case1_subs_assumption_2} уже три уравнения и четыре неизвестных. Введем допущение, что коэффициенты трения для передних и задних ног совпадают: 
 
 \begin{equation}
-  \label{eq:case1_assumption_3}
+  \label{articulated:case1_assumption_3}
   k_\tau^u = k_\tau^d = k_\tau > 0
 \end{equation}
 
 
-Подставив \ref{eq:case1_assumption_3} в \ref{eq:case1_subs_assumption_2} в итоге получим:
+Подставив \ref{articulated:case1_assumption_3} в \ref{articulated:case1_subs_assumption_2} в итоге получим:
 
 \begin{equation}
-  \label{eq:case1_final_system}
+  \label{articulated:case1_final_system}
   \left\{
   \begin{alignedat}{2}
 %    N_u == N_d kt
-    N^u = N^dk_\tau,\\
+    N_u = N_dk_\tau,\\
 %    2 N_d + 2 N_u kt == P
-    2N^d + 2N^uk_\tau = P,\\
+    2N_d + 2N_uk_\tau = P,\\
 %    2 N_u h + P y_c == 2 N_d l
-    2hN^u + Py_c = 2lN^d.\\
+    2hN_u + Py_c = 2lN_d.\\
       \end{alignedat}
   \right.
 \end{equation}
 
-В системе \ref{eq:case1_final_system} из трех уравнений содержится три неизвестные - $N^u, N^d, k_\tau$.
+В системе \ref{articulated:case1_final_system} из трех уравнений содержится три неизвестные --- $N_u, N_d, k_\tau$, причем $k_\tau > 0$, $N_u > 0$ и $N_d > 0$.
 
-Из первого уравнения \ref{eq:case1_final_system} получаем:
+Из первого уравнения \ref{articulated:case1_final_system} получаем:
 
 \begin{equation}
-\label{eq:case1_Nu}
+\label{articulated:case1_Nu}
   %N_u - N_d*k == 0;
-  N^u = N^dk_\tau
+  N_u = N_dk_\tau
 \end{equation}
 
-Подставляем выражение \ref{eq:case1_Nu} во второе уравнение \ref{eq:case1_final_system} и получаем:
+Подставляем выражение \ref{articulated:case1_Nu} во второе уравнение \ref{articulated:case1_final_system} и получаем:
 
 \begin{equation}
-  \label{eq:case1_Nd}
+  \label{articulated:case1_Nd}
  % 2*N_d + 2*N_u*k == P;
-  N^d = \dfrac{P}{2(1+k_\tau^2)}
+  N_d = \dfrac{P}{2(1+k_\tau^2)}, N_u = \dfrac{k_\tau P}{2(1+k_\tau^2)}
 \end{equation}
 
 
-Далее, подставим \ref{eq:case1_Nd} и \ref{eq:case1_Nu} в третье уравнение \ref{eq:case1_final_system} и получим квадратное уравнение относительно $k_\tau$:
+Далее, подставим \ref{articulated:case1_Nd} в третье уравнение \ref{articulated:case1_final_system} и получим квадратное уравнение относительно $k_\tau$:
 
 \begin{equation}
-\label{eq:case1_k}
+\label{articulated:case1_k}
 y_ck_\tau^2+hk_\tau + (y_c-l) = 0
 \end{equation}
 
 Для неизвестной $k_\tau$ доступны два варианта решения:
 
 \begin{equation}
-\label{eq:case1_k12}
-  \begin{multlined}
-    k_1 = -\dfrac{h + \sqrt{h^2 - 4y_c^2 + 4ly_c}}{2y_c} \\
-    k_2 = -\dfrac{h - \sqrt{h^2 - 4y_c^2 + 4ly_c}}{2y_c} \\
-  \end{multlined}
+\label{articulated:case1_k12}
+    k_\tau = -\dfrac{h \pm \sqrt{h^2 - 4y_c^2 + 4ly_c}}{2y_c} \\
 \end{equation}
 
 
-Выберем тот, который удовлетворяет условию $k_\tau > 0$. По условию задачи, имеем $0 < y_c < l$ и $h > 0$. Проверим $k_1$:
+Выберем решение, которое удовлетворяет требованию \ref{articulated:k_condition} в рассматриваемых условиях \ref{articulated:case_1_center_of_gravity} и \ref{articulated:case_1_step_points}:
 
-\[
-\begin{alignedat}{3}
-  k_1 = - \dfrac{h - \sqrt{h^2 - 4y_c^2+4ly_c}}{2y_c} &\vee 0 \\
-  \sqrt{h^2 - 4y_c^2+4ly_c} &\vee h\\
-  h^2 - 4y_c^2+4ly_c &\vee h^2 \\
-  4ly_c &\vee 4y_c^2 \\
-  l &\vee y_c\\
-  l &> y_c
-\end{alignedat}
-\]
-
-Значит, $k_1 > 0$ при $0 < y_c < l$ и $h > 0$, что полностью соответствует условию \todo{вставить ссылку на условия} задачи.
-
-
-
-Теперь проверим $k_2$. По условию задачи имеем $h > 0$ и $y_c > 0$, поэтому для $k_2$ всегда верно:
-\[
-    k_2 = -\dfrac{h + \sqrt{h^2 - 4y_c^2 + 4ly_c}}{2y_c} < 0\\
-\]
-
-Значение \ref{eq:case1_k12} $k_2$ не подходит по условию задачи.
-
-Было установлено при каких условиях $k_1$ из решения \ref{eq:case1_k12} принимает значения больше нуля. Теперь установим, при каких значениях параметров $h,l$ и $y_c$ значения $k_1$ меньше единицы. Значения, большие единицы, для коэффициента трения означают, что веса аппарата не хватает чтобы создать нужную силу трения и требуется использовать специальные зацепные механизмы на концах ног чтобы обеспечить устойчивость конфигурации.
-
-Решим следующее неравенство для переменной $y_c$:
 \begin{equation}
-\label{eq:case1_k_less_than_1}
-  \begin{alignedat}{3}
-  k_1 = - \dfrac{h - \sqrt{h^2 - 4y_c^2+4ly_c}}{2y_c} & \leq 1 \\
-  -h + \sqrt(h^2 - 4y_c^2 + 4ly_c) &\leq 2y_c\\
-  \sqrt{h^2 - 4y_c^2 + 4ly_c} &\leq 2y_c + h > 0\\
-  h^2 - 4y_c^2 +4ly_c &\leq 4y_c^2 + 4hy_c + h^2\\
-  l-y_c &\leq y_c + h\\
-  y_c &\ge \dfrac{l-h}{2}
-  \end{alignedat}
+\label{articulated:case1_k_solution}
+  k_\tau = -\dfrac{h - \sqrt{h^2 - 4y_c^2 + 4ly_c}}{2y_c}
+\end{equation}
+
+Теперь установим, при каких значениях параметров $h,l$ и $y_c$ для \ref{articulated:case1_k_solution} выполняется неравенство:
+
+\begin{equation}
+\label{articulated:case1_k_less_one}
+  k_\tau = -\dfrac{h - \sqrt{h^2 - 4y_c^2 + 4ly_c}}{2y_c} < 1  
+\end{equation}
+
+Заметим, что параметры $h,l$ и $y_c$ одной размерности. Данные параметры описывают положение опорных ног на контактных площадках и положение центра масс робота и измеряются в метрах. Воспользуемся этим обстоятельством и введем следующие безразмерные параметры:
+
+\begin{equation}
+\label{articulated:case1_dimless}
+\left\{
+\begin{alignedat}{1}
+  p_1 := \dfrac{h}{y_c}\\
+  p_2 := \dfrac{l}{y_c}\\
+\end{alignedat}, \text{где } y_c \ne 0.
+\right.
 \end{equation}
 
 
-Условие на $y_c$ из \ref{eq:case1_k_less_than_1} при заданных $l$ и $h$ используется во время управления роботом для проверки устойчивости конфигурации.
+Для неравенства \ref{articulated:case1_k_less_one} выполняется цепочка эквивалентных преобразований и замена \ref{articulated:case1_dimless}. Решение для \ref{articulated:case1_k_less_one} в новых обозначениях записывается в следующем виде:
 
+\begin{equation}
+\label{articulated:case1_dimless_solution}
+\left\{
+  \begin{alignedat}{2}
+    p_2 &< 2 - p_1б\\
+    p_1 &> 0,\\
+    p_2 &> 1.\\
+  \end{alignedat}
+\right.
+\end{equation}
 
-Чтобы найти реакции опоры, нужно подставить решение для $k_\tau$ \ref{eq:case1_k12} в уравнения \ref{eq:case1_Nd} и \ref{eq:case1_Nu}. 
+На рисунке \ref{articulated:fig:case1_dimless_solution} показано множество точек, удовлетворяющее найденному решению \ref{articulated:case1_dimless_solution}. Так же на рисунке указываются линии уровня для $k_\tau$ как функции от $p_1$ и $p_2$.
 
-Получены условия на положение центра масс робота при заданных опорных точках, при которых рассмотренная конфигурация будет устойчивой. Перейдем к рассмотрению следующей конфигурации.
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width = 0.7\linewidth]{Articulated/figure_1.png}
+  \caption{Область решения неравенства \ref{articulated:k_condition} для первой конфигурации. Для $k_\tau$ как функции от $p_1$ и $p_2$ линиями показаны уровни значений}
+  \label{articulated:fig:case1_dimless_solution}
+\end{figure}
 
-Из уравнений \todo{ставить ссылку} следует, что необходимый коэффициент трения можно уменьшить за счет смещения центра масс ближе задним опорным ногам и за счет увеличения высоты $h$ опоры передних ног.
+Из рисунка \ref{articulated:fig:case1_dimless_solution} можно вывести следующие рекомендации по выбору параметров $h,l$ и $y_c$ с целью снижения необходимого значения $k_\tau$, а именно:
+
+\begin{itemize}
+  \item сдвигать центр масс $y_c$ ближе к задним ногам
+  \item увеличивать высоту $h$ установки передних ног на вертикальной стенке
+  \item уменьшать расстояние $l$ между задними ногами и вертикальной стенкой
+\end{itemize}
+
+Перечисленные выше рекомендации используются внутри системы управления робота при планировании следовых точек и при выполнении маневров. Рассмотрим следующую конфигурацию.
+
 
 
 \subsection{Вторая конфигурация}
+\label{articulated:case_2}
 
-Рассмотрим конфигурацию, когда аппарат опирается на верхнюю и вертикальную площадку.
+Рассмотрим конфигурацию, когда аппарат опирается на верхнюю горизонтальную и вертикальную площадку.
 
-\todo{вставить рисунок}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.7\linewidth]{Articulated/configuration_2.eps}
+  \caption{Робот зацепился за верхнюю горизонтальную площадку и опирается на вертикальную площадку}
+\end{figure}
 
 Пусть теперь опорные точки ног имею координаты:
 
 \begin{equation}
-\label{eq:step_points_phase_2}
+\label{articulated:case2_step_points}
 \begin{alignedat}{3}
 &\overline{r}_1 &= (d, l, H) , &\overline{r}_2 &= (-d, l, H) \\
 &\overline{r}_3 &= (d, 0, h) , &\overline{r}_4 &= (-d, 0, h) \\
-\end{alignedat}
+\end{alignedat}, \text{где $l < 0$ и $H > h$ и $l < y_c$.}
 \end{equation}
 
-Где $l < 0$ и $H > h$ и всегда выполняется $l < y_c$.
-
-Нормальные составляющие реакций и силы трения соответственно:
+По аналогии с \ref{articulated:case_1_orts} значения ортов $\overline{\tau}_i$, $\overline{\nu}_i$ и $\overline{n}_i$ для рассматриваемой конфигурации имеют вид:
 
 \begin{equation}
-\label{eq:N_i}
+\label{articulated:case_2_orts}
 \begin{alignedat}{3}
-&\overline{N}^1 &= &N_1\cdot(0,0,1),  \\
-&\overline{N}^2 &= &N_2\cdot(0,0,1),  \\
-&\overline{N}^3 &= &N_3\cdot(0,1,0),  \\
-&\overline{N}^4 &= &N_4\cdot(0,1,0).  \\
+  \overline{\tau}_1 = (0,1,0),&\overline{\nu}_1 = (1,0,0),&\overline{n}_1 = (0,0,1),\\
+  \overline{\tau}_2 = (0,1,0),&\overline{\nu}_2 = (1,0,0),&\overline{n}_2 = (0,0,1),\\
+  \overline{\tau}_3 = (0,0,1),&\overline{\nu}_3 = (1,0,0),&\overline{n}_3 = (0,1,0),\\
+  \overline{\tau}_4 = (0,0,1),&\overline{\nu}_4 = (1,0,0),&\overline{n}_4 = (0,1,0),\\
 \end{alignedat}
 \end{equation}
 
-Соответствующие силы трения в точках контакта:
-\begin{equation}
-\label{eq:F_tau_i}
-\begin{alignedat}{3}
-&\overline{F}_\tau^1 &= &F_\tau^1\cdot(0,1,0),  \\
-&\overline{F}_\tau^2 &= &F_\tau^2\cdot(0,1,0),  \\
-&\overline{F}_\tau^3 &= &F_\tau^3\cdot(0,0,1),  \\
-&\overline{F}_\tau^4 &= &F_\tau^4\cdot(0,0,1).  \\
-\end{alignedat}
-\end{equation}
+Положение центра масс аппарата:
 
 \begin{equation}
-\label{eq:F_nu_i}
-\begin{alignedat}{1}
-\overline{F}_\nu^1 = F_\nu^1\cdot(1,0,0), \\
-\overline{F}_\nu^2 = F_\nu^2\cdot(1,0,0), \\
-\overline{F}_\nu^3 = F_\nu^3\cdot(1,0,0), \\
-\overline{F}_\nu^4 = F_\nu^4\cdot(1,0,0). \\
-\end{alignedat}
+\label{articulated:case_2_center_of_gravity}
+  \overline{r}_c = (0, y_c, z_c), l < 0, l < y_c,  \text{причем }y_c\text{ может менять свой знак.}
 \end{equation}
 
-Аналогично с пунктом \todo{вставить ссылку} выпишем уравнения статики и применим аналогичные допущения и симметриях сил трения и распределения нагрузок на ноги робота. В итоге получим следующую систему уравнений:
+Выпишем уравнения статики \ref{eq:general_static_equations} для рассматриваемой конфигурации с опорными точками \ref{articulated:case2_step_points} и ортами \ref{articulated:case_2_orts}:
+
+\begin{equation}
+  \label{articulated:case2_initial}
+\left\{
+  \begin{alignedat}{3}
+    F_\nu^1 + F_\nu^2 + F_\nu^3 + F_\nu^4 = 0,\\
+    F_\tau^1 + F_\tau^2 + N_3 + N_4 = 0,\\
+    F_\tau^3 + F_\tau^4 + N_1 + N_2 = P,\\
+    N_3 h + N_4 h + P y_c + F_\tau^1 H + F_\tau^2 H = l (N_1 + N_2),\\
+    d (F_\tau^3 + N_1) = F_\tau^4 d + F_\nu^3 h + F_\nu^4 h + N_2 d + F_\nu^1 H + F_\nu^2 H,\\
+    d (F_\tau^1 + N_3) = F_\tau^2 d + N_4 d + F_\nu^1 l + F_\nu^2 l.\\
+  \end{alignedat}
+\right.
+\end{equation}
+
+ Применим модель кулоновского трения и допущения в симметриях сил трения и распределения нагрузок на ноги робота, в точности как в разделе \ref{articulated:case1} для первой конфигурации. В итоге получим следующую систему из трех  уравнений и тремя неизвестными:
 
 \begin{equation}
 \label{eq:case2_final_equations}
 \left\{
 \begin{alignedat}{3}
-  N_u - N_dk_\tau &= 0,\\
+  N_d - N_uk_\tau &= 0,\\
   2N_u + 2N_d k_\tau &= P,\\
   2 N_d h + P y_c &= 2 N_u (l + H k_\tau)\\
   \end{alignedat}
@@ -418,11 +444,10 @@ y_ck_\tau^2+hk_\tau + (y_c-l) = 0
 \end{equation}
 
 
-Из системы \ref{eq:case2_final_equations} находим выражение для  $k$. Возможны два решения:
+Из системы \ref{eq:case2_final_equations} находим выражение для  $k_\tau$ при всех $y_c \ne 0$. Возможны два решения:
 
 \begin{equation}
 \label{eq:case2_k12}
-    \begin{alignedat}{3}    
 %      k = 
 %      /                2            2        2             \
 %      |  H - h + sqrt(H  - 2 H h + h  - 4 y_c  + 4 l y_c)  |
@@ -433,86 +458,164 @@ y_ck_\tau^2+hk_\tau + (y_c-l) = 0
 %      |   h - H + sqrt(H  - 2 H h + h  - 4 y_c  + 4 l y_c) |
 %      | - ------------------------------------------------ |
 %      \                         2 y_c                      /    
-      k_1 &= \dfrac{(H-h) + \sqrt{(H-h)^2 - 4y^2_c + 4ly_c}}{2y_c}, \\
-      k_2 &= \dfrac{(H-h) - \sqrt{(H-h)^2 - 4y^2_c + 4ly_c}}{2y_c} \\
-    \end{alignedat}
+      k_\tau = \dfrac{(H-h) \pm \sqrt{(H-h)^2 - 4y^2_c + 4ly_c}}{2y_c}, \\
 \end{equation}
 
-По условию задачи, нам подходит только $k_2$. Проверим решение $k_2$ на выполнение условия $0 < k_2 < 1$. Сначала рассмотрим условие что $k_2 > 0$:
-
-
-\[
-\begin{alignedat}{3}
-\label{eq:case2_greater_than_zero}
-0 &< k_2 = - \dfrac{(H - h) - \sqrt{(H-h)^2 - 4y_c^2+4ly_c}}{2y_c} \\
-\dfrac{(H-h)}{2y_c} &< \dfrac{\sqrt{(H-h)^2 - 4y_c^2+4ly_c}}{2y_c}\\
-\dfrac{(H-h)^2}{4y_c^2} &< \dfrac{(H-h)^2}{4y_c^2} - 1 + \dfrac{l}{y_c}\\
-1 &< \dfrac{l}{y_c}\\
-l &< y_c
-\end{alignedat}
-\]
-
-По условию расположения опорных точек во второй конфигурации всегда верно $y_c > l$. Таким образом, $k_2$ из \ref{eq:phase_2_k12} всегда больше нуля. Найдем при каких условиях, $k_2$ меньше единицы, т.е. при каких условиях конфигурация робота будет статически устойчивой за счет кулоновского трения.
-
-Решим следующее неравенство относительно переменных $y_c, l, (H-h)$:
+При условиях \ref{articulated:case2_step_points} и \ref{articulated:case_2_orts} рассматриваемой конфигурации, условию $k>0$ из \ref{articulated:k_condition} удовлетворяет только следующее решение:
 
 \begin{equation}
-\label{eq:case2_k_less_than_1}
+\label{articulated:case2_k_solution}
+k_\tau = \dfrac{(H-h) - \sqrt{(H-h)^2 - 4y_c^2 + 4ly_c}}{2y_c}
+\end{equation}
+
+Определим при каких параметрах $H,h,l$ и $y_c$ выражение \ref{articulated:case2_k_solution} будет меньше единицы:
+
+\begin{equation}
+\label{articulated:case2_k_less_than_1}
 \begin{alignedat}{3}
- - \dfrac{(H - h) - \sqrt{(H-h)^2 - 4y_c^2+4ly_c}}{2y_c}  & \leq 1 \\
+ \dfrac{(H - h) - \sqrt{(H-h)^2 - 4y_c^2+4ly_c}}{2y_c}  & \leq 1 \\
 \end{alignedat}
 \end{equation}
 
-Для этого введем безразмерные параметры:
+Введем следующие безразмерные параметры:
 
 \begin{equation}
-\label{eq:case2_dimentionless}
-p_1 := \dfrac{(H-h)}{y_c}, p_2 := \dfrac{l}{y_c}.
+\label{articulated:case2_dimentionless}
+\begin{alignedat}{1}
+  p_1 := \dfrac{(H-h)}{y_c}\\
+  p_2 := \dfrac{l}{y_c}\\
+\end{alignedat}, \text{ где } y_c \ne 0.
 \end{equation}
 
-После подстановки замены \ref{eq:case2_dimentionless} в неравенство \ref{eq:case2_k_less_than_1} получаем:
+После решения неравенства \ref{articulated:case2_k_less_than_1} и подстановки замены \ref{articulated:case2_dimentionless} в неравенство \ref{articulated:case2_k_less_than_1} получаем следующее решение:
+
 
 \begin{equation}
-\label{eq:case2_k_less_one}
-\begin{alignedat}{3}
-  0 < \dfrac{1}{2}p_1 - \sqrt{\dfrac{1}{4}p_1^2 - 1 + p_2} < 1\\
-  \dfrac{1}{4}p_1^2 - p_1 + 1 < \dfrac{1}{4}p_1^2 - 1 + p_2 \\
-  p_2 < 2 - p_1\\
-\end{alignedat}
-\end{equation}
-
-
-На координатной плоскости c осями $(p_1, p_2)$ решения неравенств \ref{eq:case2_k_less_than_1} и \ref{eq:case2_greater_than_zero} соответствует заштрихованной области:
-
-\todo{вставить рисунок области}
-
-
-Полученны условия на положение $y_c$ центра масс при заданных точках опоры используются для управления движением робота.
-
-
-Для второй конфигурации осталось рассмотреть случай когда $y_c = 0$. Подставим $y_c = 0$ в уравнения \ref{eq:case2_final_equations}. Получим:
-
-\begin{equation}
-  \label{eq:case2_zero_yc}
+\label{articulated:case2_dimless_solution}
+\left[
+  \begin{alignedat}{1}
     \left\{
-    \begin{alignedat}{3}
-      N_d - N_uk_\tau &= 0 \\
-      2N_u+2N_dk_\tau &= P \\
-      N_dh - N_ul &= HN_uk_\tau\\
-    \end{alignedat}
+      \begin{alignedat}{2}
+        p_2 &> 2-p_1,\\
+        p_2 &< 0,\\
+      \end{alignedat}
+    \right.\\
+    \left\{
+      \begin{alignedat}{2}
+        p_2 &< 2- p_1,\\
+        p_2 &> 1.\\
+      \end{alignedat}
     \right.
+  \end{alignedat}
+\right.
 \end{equation}
 
-Из системы \ref{eq:case2_zero_yc} однозначно получаем:
+Решение \ref{articulated:case2_dimless_solution} изображено на рисунках \ref{articulated:fig:case2_dimless_solution_1} и \ref{articulated:fig:case2_dimless_solution_2}. Так же на рисунках указаны линии уровня для $k_\tau$ как функции от $p_1$ и $p_2$.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width = 0.7\linewidth]{Articulated/figure_2_1.png}
+  \caption{Область решения неравенства \ref{articulated:k_condition} для второй конфигурации в случае $y_c > 0$. Сплошными линиями показаны уровни значений $k_\tau$.}
+  \label{articulated:fig:case2_dimless_solution_1}
+\end{figure}
+
+Из рисунка \ref{articulated:fig:case2_dimless_solution_1} можно вывести следующие рекомендации по выбору параметров $h,l$ и $y_c$ для случая $y_c > 0$:
+
+\begin{itemize}
+  \item отодвигать центр масс $y_c$ по горизонтали от точки контакта передних ног $l$ с верхней площадкой
+  \item уменьшать высоту опоры $h$ задних ног на вертикальную площадку
+  \item пододвигать точку опоры $l$ передних ног ближе к краю уступа
+\end{itemize}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.7\linewidth]{Articulated/figure_2_2.png}
+  \caption{Область решения неравенства \ref{articulated:k_condition} для второй конфигурации в случае $y_c < 0$. Сплошными линиями показаны уровни значений $k_\tau$.}
+  \label{articulated:fig:case2_dimless_solution_2}
+\end{figure}
+
+Из рисунка \ref{articulated:fig:case2_dimless_solution_2} можно вывести следующие рекомендации по выбору параметров $h,l$ и $y_c$ для случая $y_c < 0$:
+
+\begin{itemize}
+  \item сдвигать центр масс $y_c$ в горизонтальной плоскости к точке контакта передних ног
+  \item уменьшать высоту опоры $h$ задних ног на вертикальную площадку
+  \item пододвигать точку опоры $l$ передних ног ближе к краю уступа
+\end{itemize}
+
+Отдельно рассмотрим случай когда центр масс аппарата находится ровно над верхней кромкой уступа.
+
+\subsection{Случай $y_c = 0$}
+
+Подставим $y_c = 0$ в уравнения \ref{eq:case2_final_equations}. Получим:
 
 \begin{equation}
-  \label{eq:case2_zero_yc_solution}
-  \begin{alignedat}{3}
-  k = -\dfrac{l}{H-h},\\
-  N_u = \dfrac{P(H-h)^2}{2((H-h)^2+l^2)}\\
-  N_d = \dfrac{-Pl(H - h)}{2((H-h)^2+l^2)}\\
+\label{articulated:case2_zero_yc}
+\left\{
+\begin{alignedat}{3}
+N_d - N_uk_\tau &= 0 \\
+2N_u+2N_dk_\tau &= P \\
+N_dh - N_ul &= HN_uk_\tau\\
+\end{alignedat}
+\right.
+\end{equation}
+
+Из системы \ref{articulated:case2_zero_yc} однозначно получаем:
+
+\begin{equation}
+\label{articulated:case2_zero_yc_solution}
+\left\{
+\begin{alignedat}{3}
+&k_\tau = -\dfrac{l}{H-h},\\
+&N_u = \dfrac{P(H-h)^2}{2((H-h)^2+l^2)}\\
+&N_d = \dfrac{-Pl(H - h)}{2((H-h)^2+l^2)}\\
+\end{alignedat}
+\right.
+\end{equation}
+
+Из условия \ref{articulated:case2_step_points} и \ref{articulated:case2_zero_yc_solution} следует что $k_\tau$ всегда больше нуля. А условие $k_\tau < 1$ будет выполняться когда выполнено следующее соотношение:
+
+\begin{equation}
+\label{articulated:case2_zero_yc_simple}
+  0 < -l < (H-h)
+\end{equation}
+
+Соотношение \ref{articulated:case2_zero_yc_simple} требует что расстояние от передних ног до верхнего края уступа будет меньше, чем расстояние от задних ног до верхнего края уступа.
+
+Таким образом, задача о проверке статической устойчивости шестиногого аппарата свелась к системе из трех уравнений с тремя неизвестными. Рассмотренные конфигурации покрывают все случа расстановки ног, за исключением конфигураций, когда выполняется смена опорных ног или когда аппарат опирается ногами только на горизонтальные площадки.
+
+\subsection{Маневры для залезания на уступ}
+
+Робот должен, находясь в начальный момент времени на нижней горизонтальной площадке, подойти к вертикальной стенке уступа и опереться на вертикальную стенку передними ногами. Далее он должен выполняя перестановку ног и артикулируя корпусом дотянуться передними ногами до верхнего края уступа и повиснуть на нём. Затем выполнить перестановку ног и зацепится за верхний край средними ногами, а передние переставить дальше на верхнюю контактную площадку. Затем выполняется перенос центра масс робота через верхний край уступа и задние ноги переносятся с вертикальной стенки на горизонтальную площадку.
+
+Таким образом, алгоритм залезания робота делится на несколько этапов. Для этапа с номером $n$ введем моменты времени $t_{n-1}$ и $t_n$ --- соответственно моменты начала и конца этапа.
+
+В начальный момент времени $t_0$ корпус ориентирован вдоль оси $Oy$ в положительном направлении. Положение центра $(x,y,z)$ и углы ориентации $(\phi,\psi,\theta)$ для среднего звена корпуса равны:
+
+\begin{equation}
+  \begin{alignedat}{2}
+    (x,y,z) = (0,0,0.3),\\
+    (\phi,\psi,\theta) = (0,0,0)\\
   \end{alignedat}
 \end{equation}
 
 
-Таким образом, задача о проверке статической устойчивости шестиногого аппарата свелась к системе из трех уравнений с тремя неизвестными. Рассмотренные конфигурации покрывают все случа расстановки ног, за исключением конфигураций, когда выполняется смена опорных ног или когда аппарат опирается ногами только на горизонтальные площадки.
+Этап 1. Робот переносит передние ноги на вертикальную стенку. Смещает центр масс в сторону стенки и артикулирует передним звеном корпуса. Последовательно переставляет средние и задние ноги ближе к стенке.
+
+Этап 2. Робот переставляет передние ноги еще выше на стенку, остальные ноги переставляются ближе к стенке. Артикулирует всеми звеньями чтобы ноги доставали до точек контакта.
+
+Этап 3. Средние ноги переносятся на вертикальную стенку. Корпус поднимается к верхнему краю уступа. Передние ноги ставятся на верхнюю площадку. Центр масс робота смещается ближе к вертикальной стенке.
+
+Этап 4. Задние ноги поднимаются с нижней площадки и переносятся на вертикальную стенку. Средние ноги переставляются на верхнюю площадку.
+
+Этап 5. Центр масс робота переносится на верхнюю площадку между передними и средними ногами.
+
+Этап 6. Задние ноги переносятся на верхнюю площадку.
+
+
+
+
+
+\subsubsection{Фаза t1 < t < t2 ...}
+
+
+
